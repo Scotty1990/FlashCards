@@ -1,0 +1,29 @@
+body {
+    display: grid;
+    grid-template-rows: 100px 100px 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px 100px 100px;
+    margin: 0 250px;
+}
+
+div {
+    display: inline-grid;
+    background-color: green;
+    height: 50px;
+    width: 50px;
+    padding:20px
+}
+
+.numbers {
+    display: none;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.test {
+    background-color: white;
+}
+
+/* .flipCard {
+    display: none;
+} */
