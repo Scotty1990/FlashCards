@@ -14,7 +14,7 @@ div {
 }
 
 .numbers {
-    display: none;
+    display: block;
     margin: auto;
     justify-content: center;
     align-items: center;
@@ -22,6 +22,10 @@ div {
 
 .test {
     background-color: white;
+}
+
+.numberToggle {
+    display: none;
 }
 
 /* .flipCard {
