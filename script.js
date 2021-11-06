@@ -7,41 +7,35 @@ let playerPt = 0
     if ()
 }
 */
+
+let magnitude = []
+let arr = []
+let scoreKeep = []
 let counter = 0
-
-function resetPair() {
-    for (let k = 0; k < 20; k++) {
-        for(let j = 0; j < 20; j++) {
-            if(nums[k] != nums[j]) {
-                nums[k].classList.toggle("numberToggle")
-                nums[j].classList.toggle("numberToggle")
-            }
-        }
-    }
-}
-
-function scoreCheck() {
-    for (let i = 0; i < 10; i++) {
-        if (cards[i].innerText == `${i + 1}` && cards[i + 10].innerText == `${i + 1}`) {
-            playerPt++
-            p1Score.innerText = " " + playerPt
-        }
-        if (playerPt == 10) {
-            console.log("You win!")
-            winDisplay.innerText = " " + 1
-        }
-        if (counter % 2 == 1){
-            resetPair()
-            console.log(counter)
-        }
-    }
-}
 
 cards.forEach((card, i) => {
     card.addEventListener("click", () => {    
         nums[i].classList.toggle("numberToggle")
-        scoreCheck()
-        counter++   
+        magnitude.push(nums[i].innerText)
+        arr.push(nums[i])
+        counter++
+        if (counter % 2 == 0) {
+            if (magnitude[0] == magnitude[1] && scoreKeep.includes(arr[0]) == false && scoreKeep.includes(arr[1] == false)) { // and also here
+                playerPt++
+                p1Score.innerText = " " + playerPt
+                scoreKeep.push(arr[0].innerText) // work with these two lines
+                scoreKeep.push(arr[1].innerText) // here
+                console.log("it's getting here")
+            }
+            magnitude.pop()
+            magnitude.pop()
+            setTimeout(() => {
+                arr[0].classList.toggle("numberToggle")
+                arr[1].classList.toggle("numberToggle")
+                arr.pop()
+                arr.pop()
+            }, 3000)
+            console.log(scoreKeep)
+        }
     })
 })
-
