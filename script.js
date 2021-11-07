@@ -8,34 +8,64 @@ let playerPt = 0
 }
 */
 
-let magnitude = []
+let tempArray = []
 let arr = []
 let scoreKeep = []
 let counter = 0
+let numArray = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+
+// I found out that the program doesn't stop at a setTimeout, it
+// keeps running the program and runs setTimeout a little later
+function cardFlip() {
+    setTimeout(() => {
+        arr[0].classList.toggle("numberToggle")
+        arr[1].classList.toggle("numberToggle")
+        clearArr()
+    }, 3000)
+}
+
+function magnitude() {
+    tempArray.pop()
+    tempArray.pop()
+}
+
+function clearArr() {
+    arr.pop()
+    arr.pop()
+}
+// change newNum to nums maybe? still playing with this, remember that there are no numbers in HTML document right now
+// function setNumOrder() {
+//     cards.forEach((card, i) => {
+//         let newNum = document.createElement("h1")
+        
+//         newNum.setAttribute("class", "numbers")
+        
+//         card.appendChild(newNum)
+//         document.querySelectorAll(".numbers")[i].firstChild.innerText = `${numArray[Math.floor(Math.random() * 20)]}`
+//     })
+// }
+// setNumOrder()
 
 cards.forEach((card, i) => {
     card.addEventListener("click", () => {    
         nums[i].classList.toggle("numberToggle")
-        magnitude.push(nums[i].innerText)
+        tempArray.push(nums[i].innerText)
         arr.push(nums[i])
         counter++
         if (counter % 2 == 0) {
-            if (magnitude[0] == magnitude[1] && scoreKeep.includes(arr[0]) == false && scoreKeep.includes(arr[1] == false)) { // and also here
+            if (tempArray[0] == tempArray[1] && (scoreKeep.includes(tempArray[0]) == false && scoreKeep.includes(tempArray[1]) == false)) { // and also here
                 playerPt++
                 p1Score.innerText = " " + playerPt
-                scoreKeep.push(arr[0].innerText) // work with these two lines
-                scoreKeep.push(arr[1].innerText) // here
-                console.log("it's getting here")
+                scoreKeep.push(tempArray[0])
+                scoreKeep.push(tempArray[1])
+                clearArr()
+                if (playerPt == 10) {
+                    winDisplay.innerText = " " + 1
+                }
+            } else {
+                cardFlip()
             }
-            magnitude.pop()
-            magnitude.pop()
-            setTimeout(() => {
-                arr[0].classList.toggle("numberToggle")
-                arr[1].classList.toggle("numberToggle")
-                arr.pop()
-                arr.pop()
-            }, 3000)
-            console.log(scoreKeep)
+            magnitude()
         }
     })
 })
