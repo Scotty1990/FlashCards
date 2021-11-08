@@ -33,18 +33,26 @@ function clearArr() {
     arr.pop()
     arr.pop()
 }
+
+function shuffleNums() {
+    for (let i = numArray.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1))
+        let temp = numArray[i]
+        console.log(numArray)
+        numArray[i] = numArray[j]
+        console.log(numArray)
+        numArray[j] = temp
+        console.log(numArray)
+    }
+}
 // change newNum to nums maybe? still playing with this, remember that there are no numbers in HTML document right now
-// function setNumOrder() {
-//     cards.forEach((card, i) => {
-//         let newNum = document.createElement("h1")
-        
-//         newNum.setAttribute("class", "numbers")
-        
-//         card.appendChild(newNum)
-//         document.querySelectorAll(".numbers")[i].firstChild.innerText = `${numArray[Math.floor(Math.random() * 20)]}`
-//     })
-// }
-// setNumOrder()
+function setNumOrder() {
+    nums.forEach((num, i) => {
+        num.innerText = numArray[i]
+    })
+}
+shuffleNums()
+setNumOrder()
 
 cards.forEach((card, i) => {
     card.addEventListener("click", () => {    
