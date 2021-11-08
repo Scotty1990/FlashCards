@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <h1 class="scores">Player 1:<span id="p1Score"></span></h1>
-    <h1 class="scores">Player 2:</h1>
     <title>Document</title>
 </head>
 <body>
-    
+    <div>
+        <h2 class="scores" id = "p1Name">Player 1:</h2><span id="p1Score"></span>
+    </div>
+    <h2 class="scores">Player 2:</h2>
     <div class="test"></div>
     <div class="test"></div>
     <h1>Wins:<span id="winDisplay"></span></h1>
-    <div class="cards" id="one"><h1 class="numbers numberToggle"></h1></div>
+    <div class="cards" id="one"><h1 class="numbers numberToggle" id="num1"></h1></div>
     <div class="cards" id="two"><h1 class="numbers numberToggle" id="num2"></h1></div>
     <div class="cards" id="three"><h1 class="numbers numberToggle" id="num3"></h1></div>
     <div class="cards" id="four"><h1 class="numbers numberToggle" id="num4"></h1></div>
@@ -34,6 +35,11 @@
     <div class="cards" id="eightMatch"><h1 class="numbers numberToggle" id="num8Match"></h1></div>
     <div class="cards" id="nineMatch"><h1 class="numbers numberToggle" id="num9Match"></h1></div>
     <div class="cards" id="tenMatch"><h1 class="numbers numberToggle" id="num10Match"></h1></div>
+    <button id="reset">Reset game</button>
+    <div class="test"></div>
+    <div class="test"></div>
+    <input type="text" id="p1Input" placeholder="Your name">
+    <button id="submit">Submit name</button>
     
     <script src="script.js"></script>
 </body>

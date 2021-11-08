@@ -5,12 +5,16 @@ body {
     margin: 0 250px;
 }
 
-div {
+div.cards {
     display: inline-grid;
     background-color: green;
     height: 50px;
     width: 50px;
     padding:20px
+}
+
+#p1Score {
+    font-size: 25px;
 }
 
 .numbers {
@@ -24,9 +28,9 @@ div {
     background-color: white;
 }
 
-.numberToggle {
+/* .numberToggle {
     display: none;
-}
+} */
 
 /* .flipCard {
     display: none;
