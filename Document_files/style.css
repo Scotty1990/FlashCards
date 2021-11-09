@@ -56,13 +56,12 @@ div.cards {
 }
 
 .flip-card-front {
-    background-color: dodgerblue;
+    background-color: rgb(0, 255, 0);
     color: black;
-    display: flex;
 }
 
 .flip-card-back {
-    background-color: rgb(0, 255, 0);
+    background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);
     display: flex;
