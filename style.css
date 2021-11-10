@@ -17,6 +17,15 @@ div.cards {
     font-size: 25px;
 }
 
+#p2Score {
+    font-size: 25px;
+}
+
+#message {
+    height: 50px;
+    width: 300px;
+}
+
 .numbers {
     display: block;
     margin: auto;

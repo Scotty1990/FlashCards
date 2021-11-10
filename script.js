@@ -1,40 +1,54 @@
 const nums = document.querySelectorAll(".numbers")
 const cards = document.querySelectorAll(".cards")
 const p1Score = document.querySelector("#p1Score")
-const winDisplay = document.querySelector("#winDisplay")
+const p2Score = document.querySelector("#p2Score")
+const player1WinDisplay = document.querySelector("#player1WinDisplay")
+const player2WinDisplay = document.querySelector("#player2WinDisplay")
+const player2H2Display = document.querySelector("#player2H2Display")
 const resetButton = document.querySelector("#reset")
-const p1NameInput = document.querySelector("#p1Input")
+const nameInput = document.querySelector("#p1Input")
 const p1Name = document.querySelector("#p1Name")
+const p2Name = document.querySelector("#p2Name")
 const submit = document.querySelector("#submit")
 const flipped = document.querySelectorAll(".flip-card")
-const flipCardInner = document.querySelectorAll(".flip-card-inner")
+const singlePlayerButton = document.querySelector("#singlePlayer")
+const twoPlayerButton = document.querySelector("#twoPlayer")
+const message = document.querySelector("#message")
 
-let playerPt = 0
-let winCounter = 0
+/*
+    Some bugs include not being able to display
+    the winner's chosen name at the bottom when 
+    they win. I really wanted to make that work
+*/
+
+let player1Pt = 0
+let player2Pt = 0
+let player1WinCounter = 0
+let player2WinCounter = 0
 let tempArray = []
 let shownCardArray = []
 let scoreKeep = []
-let counter = 0
-let numArray = ["./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png","./pics/lisa.png","./pics/maggie.jpeg","./pics/marge.png","./pics/moe.png","./pics/ned-flanders.jpeg","./pics/principal-skinner.png","./pics/sideshow-bob.png","./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png","./pics/lisa.png","./pics/maggie.jpeg","./pics/marge.png","./pics/moe.png","./pics/ned-flanders.jpeg","./pics/principal-skinner.png","./pics/sideshow-bob.png"]
-// let flipArray = []
+let flipCounter = 0
+let numArray = ["./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png","./pics/lisa.png","./pics/maggie.png","./pics/marge.png","./pics/moe.png","./pics/ned-flanders.png","./pics/principal-skinner.png","./pics/sideshow-bob.png","./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png","./pics/lisa.png","./pics/maggie.png","./pics/marge.png","./pics/moe.png","./pics/ned-flanders.png","./pics/principal-skinner.png","./pics/sideshow-bob.png"]
+let playerCounter = 0
+let turnCounter = 0
+let twoPlayer = false
 
-function cardFlip(i, j) {
+p2Name.style.visibility = "hidden"
+player2H2Display.style.visibility = "hidden"
+p2Score.style.visibility = "hidden"
+
+function cardFlip() { 
     setTimeout(() => {
-        // flipArray[0].classList.toggle("flipped")
-        // flipArray[1].classList.toggle("flipped")
-        shownCardArray[0].classList.toggle("flipped")
-        shownCardArray[1].classList.toggle("flipped")
+        /* 
+            Had to change this from ".toggle" to ".add" so that cards 
+            would stop flipping randomly if I pressed "reset" mid flip 
+        */
+        shownCardArray[0].classList.add("flipped")
+        shownCardArray[1].classList.add("flipped")
         clearShownCardArray()
-    }, 3000)
+    }, 2000)
 }
-
-// function cardFlip() {
-//     setTimeout(() => {
-//         shownCardArray[0].style.visibility = "hidden"
-//         shownCardArray[1].style.visibility = "hidden"
-//         clearShownCardArray()
-//     }, 3000)
-// }
 
 function clearTempArray() {
     tempArray.pop()
@@ -48,7 +62,7 @@ function clearShownCardArray() {
 
 function shuffleNums() {
     for (let i = numArray.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1))
+        let j = Math.floor(Math.random() * (numArray.length))
         let temp = numArray[i]
         numArray[i] = numArray[j]
         numArray[j] = temp
@@ -64,89 +78,135 @@ function setNumOrder() {
 shuffleNums()
 setNumOrder()
 
+singlePlayerButton.addEventListener("click", () => {
+    p2Name.style.visibility = "hidden"
+    player2H2Display.style.visibility = "hidden"
+    p2Score.style.visibility = "hidden"
+    twoPlayer = false
+    player1WinCounter = 0
+    player1WinDisplay.innerText = " " + 0
+})
+
+twoPlayerButton.addEventListener("click", () => { 
+    p2Name.style.visibility = "visible"
+    player2H2Display.style.visibility = "visible"
+    p2Score.style.visibility = "visible"
+    twoPlayer = true
+    player1WinCounter = 0
+    player2WinCounter = 0
+    player1WinDisplay.innerText = " " + 0
+    player2WinDisplay.innerText = " " + 0
+})
+
 submit.addEventListener("click", () => {
-    p1Name.innerText = p1NameInput.value + ":"
+    if (p2Name.style.visibility == "hidden") {
+        p1Name.innerText = nameInput.value + ":"
+        console.log("first if statement")
+    } else {
+        if (playerCounter % 2 == 0) {           
+            p1Name.innerText = nameInput.value + ":"
+            playerCounter++
+            /* had two submit event listeners but that was causing
+               issues then I fixed it with the single submit event
+               listener with a conditional inside it
+            */
+        } else {
+            p2Name.innerText = nameInput.value + ":"
+            playerCounter++  
+        }
+    }
 })
 
 resetButton.addEventListener("click", () => {
     flipped.forEach((num) => {
         num.classList.add("flipped")
     })
-    // nums[i].style.visibility = "hidden"
     for (let i = scoreKeep.length - 1; i >= 0; i--) {
         scoreKeep.pop()
     }
     if (tempArray.length == 1) {
         tempArray.pop()
-        counter = 0
+        flipCounter = 0
     }
     if (shownCardArray.length == 1)
         shownCardArray.pop()
     shuffleNums()
-    setNumOrder()
-    playerPt = 0
+    // did a setTimeout so that the user wouldn't see the new 
+    // cards before they reset
+    setTimeout(() => {
+        setNumOrder()
+    }, 1000)
+    player1Pt = 0
+    player2Pt = 0
     p1Score.innerText = 0
+    p2Score.innerText = 0
 })
 
 flipped.forEach((card, i) => {
         card.addEventListener("click", () => {
-        flipped[i].classList.toggle("flipped")
-        nums[i].style.visibility = "visible"
-        shownCardArray.push(flipped[i])
-        tempArray.push(nums[i].src)
-        // shownCardArray.push(nums[i])
-        counter++
-        if (counter % 2 == 0) {
-            if (shownCardArray[0] == shownCardArray[1]) {
-                shownCardArray[0].classList.toggle("flipped")
-                clearShownCardArray()
-            } else {
-                if (tempArray[0] == tempArray[1] && scoreKeep.includes(tempArray[0]) == false) { // and also here
-                    playerPt++
-                    p1Score.innerText = " " + playerPt
-                    scoreKeep.push(tempArray[0])
-                    scoreKeep.push(tempArray[1])
+        /* This if condition made it so that I couldn't flip a third
+           card when there were two unmatching ones already
+           face up. Making sure the shownCardArray[0] != card makes
+           sure you can't just flip the card back over after you 
+           select it. */
+        if (shownCardArray.length < 2 && shownCardArray[0] != card) {
+            flipped[i].classList.toggle("flipped")
+            /* I had to have two separate temp arrays, shownCardArray
+               shows the id's, which I believe is how the program
+               knows whether you clicked on the same card twice in a
+               row. tempArray uses the .src, which is how it knows it's
+               matching */
+            shownCardArray.push(flipped[i])
+            tempArray.push(nums[i].src)
+            console.log(shownCardArray[0]) // left these two console.logs in
+            console.log(tempArray[0]) // to show the difference
+            flipCounter++
+            if (flipCounter % 2 == 0) {
+                if (shownCardArray[0] == shownCardArray[1]) {
+                    shownCardArray[0].classList.add("flipped")
                     clearShownCardArray()
-                    if (playerPt == 10) {
-                        winCounter++
-                        winDisplay.innerText = " " + winCounter
-                    }
                 } else {
-                    cardFlip()
+                    if (tempArray[0] == tempArray[1] && scoreKeep.includes(tempArray[0]) == false) { // and also here
+                        if (turnCounter % 2 == 0 || twoPlayer == false) {
+                            player1Pt++
+                            p1Score.innerText = " " + player1Pt
+                        }
+                        else {
+                            player2Pt++
+                            p2Score.innerText = " " + player2Pt
+                        }
+                        scoreKeep.push(tempArray[0])
+                        scoreKeep.push(tempArray[1])
+                        clearShownCardArray()
+                        if (scoreKeep.length == 20) {
+                            if (player1Pt > player2Pt) {
+                                player1WinCounter++
+                                player1WinDisplay.innerText = " " + player1WinCounter
+                                if (twoPlayer == false)
+                                    message.innerText = "You win! Congratulations!"
+                                else
+                                    message.innerText = `Player 1 wins!`
+                            } else {
+                                if (player2Pt > player1Pt) {
+                                    player2WinCounter++
+                                    player2WinDisplay.innerText = " " + player2WinCounter
+                                    message.innerText = `Player 2 wins!`
+                                } else {
+                                    message.innerText = "You're both equally good!"
+                                }
+                            }
+                        }
+                    } else {
+                        cardFlip()
+                    }
                 }
+                clearTempArray()
+                turnCounter++
+                if (turnCounter % 2 == 0) 
+                    console.log("now it's player one's turn")
+                else 
+                    console.log("now it's player two's turn")
             }
-            clearTempArray()
         }
     })
 })
-
-// cards.forEach((card, i, j) => {
-//     card.addEventListener("click", () => {  
-//         flipped[j].classList.toggle("flipped")  
-//         // nums[i].style.visibility = "visible"
-//         tempArray.push(nums[i].src)
-//         shownCardArray.push(nums[i])
-//         counter++
-//         if (counter % 2 == 0) {
-//             if (shownCardArray[0] == shownCardArray[1]) {
-//                 nums[i].style.visibility = "hidden"
-//                 clearShownCardArray()
-//             } else {
-//                 if (tempArray[0] == tempArray[1] && scoreKeep.includes(tempArray[0]) == false) { // and also here
-//                     playerPt++
-//                     p1Score.innerText = " " + playerPt
-//                     scoreKeep.push(tempArray[0])
-//                     scoreKeep.push(tempArray[1])
-//                     clearShownCardArray()
-//                     if (playerPt == 10) {
-//                         winCounter++
-//                         winDisplay.innerText = " " + winCounter
-//                     }
-//                 } else {
-//                     cardFlip()
-//                 }
-//             }
-//             clearTempArray()
-//         }
-//     })
-// })

@@ -11,10 +11,12 @@
     <div>
         <h2 class="scores" id = "p1Name">Player 1:</h2><span id="p1Score"></span>
     </div>
-    <h2 class="scores">Player 2:</h2>
+    <div>
+        <h2 class="scores" id="p2Name">Player 2:</h2><span id="p2Score"></span>
+    </div>
     <div class="test"></div>
-    <div class="test"></div>
-    <h2>Wins:<span id="winDisplay"></span></h2>
+    <h2>Player 1 Wins:<span id="player1WinDisplay"></span></h2>
+    <h2 id="player2H2Display">Player 2 Wins:<span id="player2WinDisplay"></span></h2>
     <div class="flip-card flipped">
         <div class="flip-card-inner">
             <div class="flip-card-front">
@@ -196,31 +198,12 @@
         </div>
     </div>
    
-    <!-- <div class="cards" id="one"><img class="numbers numberToggle" id="num1"></div>
-    <div class="cards" id="two"><img class="numbers numberToggle" id="num2"></div>
-    <div class="cards" id="three"><img class="numbers numberToggle" id="num3"></div>
-    <div class="cards" id="four"><img class="numbers numberToggle" id="num4"></div>
-    <div class="cards" id="five"><img class="numbers numberToggle" id="num5"></div>
-    <div class="cards" id="six"><img class="numbers numberToggle" id="num6"></div>
-    <div class="cards" id="seven"><img class="numbers numberToggle" id="num7"></div>
-    <div class="cards" id="eight"><img class="numbers numberToggle" id="num8"></div>
-    <div class="cards" id="nine"><img class="numbers numberToggle" id="num9"></div>
-    <div class="cards" id="ten"><img class="numbers numberToggle" id="num10"></div>
-    <div class="cards" id="oneMatch"><img class="numbers numberToggle" id="num1Match"></div>
-    <div class="cards" id="twoMatch"><img class="numbers numberToggle" id="num2Match"></div>
-    <div class="cards" id="threeMatch"><img class="numbers numberToggle" id="num3Match"></div>
-    <div class="cards" id="fourMatch"><img class="numbers numberToggle" id="num4Match"></div>
-    <div class="cards" id="fiveMatch"><img class="numbers numberToggle" id="num5Match"></div>
-    <div class="cards" id="sixMatch"><img class="numbers numberToggle" id="num6Match"></div>
-    <div class="cards" id="sevenMatch"><img class="numbers numberToggle" id="num7Match"></div>
-    <div class="cards" id="eightMatch"><img class="numbers numberToggle" id="num8Match"></div>
-    <div class="cards" id="nineMatch"><img class="numbers numberToggle" id="num9Match"></div>
-    <div class="cards" id="tenMatch"><img class="numbers numberToggle" id="num10Match"></div> -->
-    <button id="reset">Reset game</button>
-    <div class="test"></div>
-    <div class="test"></div>
+    <button id="reset">Reset Game</button>
+    <button id="singlePlayer">Single Player</button>
+    <button id="twoPlayer">Two Player</button>
     <input type="text" id="p1Input" placeholder="Your name">
-    <button id="submit">Submit name</button>
+    <button id="submit">Submit Name</button>
+    <div id="message"></div>
     
     <script src="script.js"></script>
 </body>
