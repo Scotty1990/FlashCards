@@ -24,6 +24,12 @@ div.cards {
 #message {
     height: 50px;
     width: 300px;
+    font-size: 20px;
+}
+
+#winReset {
+    height: 30px;
+    margin: auto;
 }
 
 .numbers {
@@ -31,10 +37,6 @@ div.cards {
     margin: auto;
     justify-content: center;
     align-items: center;
-}
-
-.test {
-    background-color: white;
 }
 
 .flip-card {

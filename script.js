@@ -14,6 +14,7 @@ const flipped = document.querySelectorAll(".flip-card")
 const singlePlayerButton = document.querySelector("#singlePlayer")
 const twoPlayerButton = document.querySelector("#twoPlayer")
 const message = document.querySelector("#message")
+const winReset = document.querySelector("#winReset")
 
 /*
     Some bugs include not being able to display
@@ -33,6 +34,12 @@ let numArray = ["./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png
 let playerCounter = 0
 let turnCounter = 0
 let twoPlayer = false
+secondMessage = false
+
+if (twoPlayer == true)
+    message.innerText = `You're up ${p1Name.innerText}!`
+else
+    message.innerText = `Test your memory ${p1Name.innerText}!`
 
 p2Name.style.visibility = "hidden"
 player2H2Display.style.visibility = "hidden"
@@ -78,6 +85,13 @@ function setNumOrder() {
 shuffleNums()
 setNumOrder()
 
+winReset.addEventListener("click", () => {
+    player1WinCounter = 0
+    player2WinCounter = 0
+    player1WinDisplay.innerText = 0
+    player2WinDisplay.innerText = 0
+})
+
 singlePlayerButton.addEventListener("click", () => {
     p2Name.style.visibility = "hidden"
     player2H2Display.style.visibility = "hidden"
@@ -100,18 +114,20 @@ twoPlayerButton.addEventListener("click", () => {
 
 submit.addEventListener("click", () => {
     if (p2Name.style.visibility == "hidden") {
-        p1Name.innerText = nameInput.value + ":"
+        p1Name.innerText = nameInput.value
         console.log("first if statement")
+        message.innerText = `Test your memory ${p1Name.innerText}!`
     } else {
         if (playerCounter % 2 == 0) {           
-            p1Name.innerText = nameInput.value + ":"
+            p1Name.innerText = nameInput.value
             playerCounter++
+            message.innerText = `You're up ${p1Name.innerText}!`
             /* had two submit event listeners but that was causing
                issues then I fixed it with the single submit event
                listener with a conditional inside it
             */
         } else {
-            p2Name.innerText = nameInput.value + ":"
+            p2Name.innerText = nameInput.value
             playerCounter++  
         }
     }
@@ -140,6 +156,8 @@ resetButton.addEventListener("click", () => {
     player2Pt = 0
     p1Score.innerText = 0
     p2Score.innerText = 0
+    message.innerText = `You're up ${p1Name.innerText}!`
+    turnCounter = 0
 })
 
 flipped.forEach((card, i) => {
@@ -170,10 +188,17 @@ flipped.forEach((card, i) => {
                         if (turnCounter % 2 == 0 || twoPlayer == false) {
                             player1Pt++
                             p1Score.innerText = " " + player1Pt
+                            turnCounter++
+                            if (twoPlayer == true)
+                                message.innerText = "Your cards match! Go again!"
+                            secondMessage = true
                         }
                         else {
                             player2Pt++
                             p2Score.innerText = " " + player2Pt
+                            turnCounter++
+                            message.innerText = "Your cards match! Go again!"
+                            secondMessage = true
                         }
                         scoreKeep.push(tempArray[0])
                         scoreKeep.push(tempArray[1])
@@ -182,30 +207,39 @@ flipped.forEach((card, i) => {
                             if (player1Pt > player2Pt) {
                                 player1WinCounter++
                                 player1WinDisplay.innerText = " " + player1WinCounter
-                                if (twoPlayer == false)
+                                if (twoPlayer == false) {
                                     message.innerText = "You win! Congratulations!"
-                                else
-                                    message.innerText = `Player 1 wins!`
+                                    secondMessage = true
+                                }
+                                else {
+                                    message.innerText = `${p1Name.innerText} wins!`
+                                    secondMessage = true
+                                }
                             } else {
                                 if (player2Pt > player1Pt) {
                                     player2WinCounter++
                                     player2WinDisplay.innerText = " " + player2WinCounter
-                                    message.innerText = `Player 2 wins!`
+                                    message.innerText = `${p2Name.innerText} wins!`
+                                    secondMessage = true
                                 } else {
                                     message.innerText = "You're both equally good!"
+                                    secondMessage = true
                                 }
                             }
                         }
                     } else {
                         cardFlip()
+                        secondMessage = false
                     }
                 }
                 clearTempArray()
                 turnCounter++
-                if (turnCounter % 2 == 0) 
-                    console.log("now it's player one's turn")
-                else 
-                    console.log("now it's player two's turn")
+                if (twoPlayer == true && secondMessage == false) {
+                    if (turnCounter % 2 == 0)
+                        message.innerText = `You're up ${p1Name.innerText}!`
+                    else
+                        message.innerText = `You're up ${p2Name.innerText}!`
+                }
             }
         }
     })
