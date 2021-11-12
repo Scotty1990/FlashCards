@@ -17,9 +17,8 @@ const message = document.querySelector("#message")
 const winReset = document.querySelector("#winReset")
 
 /*
-    Some bugs include not being able to display
-    the winner's chosen name at the bottom when 
-    they win. I really wanted to make that work
+    Player 2 has to go through player 1 retyping in their name
+    if they make a mistake, and vice versa.
 */
 
 let player1Pt = 0
@@ -34,12 +33,12 @@ let numArray = ["./pics/bart.png","./pics/grandpa-simpson.png","./pics/homer.png
 let playerCounter = 0
 let turnCounter = 0
 let twoPlayer = false
-secondMessage = false
+let secondMessage = false
 
-if (twoPlayer == true)
-    message.innerText = `You're up ${p1Name.innerText}!`
-else
-    message.innerText = `Test your memory ${p1Name.innerText}!`
+// this is the default message, single player is
+// default so I just left it as it was
+if (twoPlayer == false)
+    message.innerText = `Find matching cards and win!`
 
 p2Name.style.visibility = "hidden"
 player2H2Display.style.visibility = "hidden"
