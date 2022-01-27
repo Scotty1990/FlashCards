@@ -1,7 +1,7 @@
 # Simpsons Matching Flash Cards
 In the project I created cards that the user can click in order to flip. If they match, the program knows to add to the score. The user can switch between single player and two player.
 
-### Technologies used
+### Technologies Used
 - HTML
 - Javascript
 - CSS

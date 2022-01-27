@@ -114,7 +114,6 @@ twoPlayerButton.addEventListener("click", () => {
 submit.addEventListener("click", () => {
     if (p2Name.style.visibility == "hidden") {
         p1Name.innerText = nameInput.value
-        console.log("first if statement")
         message.innerText = `Test your memory ${p1Name.innerText}!`
     } else {
         if (playerCounter % 2 == 0) {           

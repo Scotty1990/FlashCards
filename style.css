@@ -3,11 +3,12 @@ body {
     grid-template-rows: 100px 100px 100px 100px 100px;
     grid-template-columns: 100px 100px 100px 100px 100px;
     margin: 0 250px;
+    background-color: darkred;
 }
 
 div.cards {
     display: inline-grid;
-    background-color: green;
+    background-color: forestgreen;
     height: 50px;
     width: 50px;
     padding:20px
@@ -73,7 +74,7 @@ div.cards {
 }
 
 .flip-card-back {
-    background-color: rgb(0, 255, 0);
+    background-color: forestgreen;
     color: white;
     transform: rotateY(180deg);
     display: flex;
