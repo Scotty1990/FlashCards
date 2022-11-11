@@ -81,6 +81,29 @@ function setNumOrder() {
     })
 }
 
+function resetFunction() {
+    flipped.forEach((num) => {
+        num.classList.add("flipped")
+    })
+    for (let i = scoreKeep.length - 1; i >= 0; i--) {
+        scoreKeep.pop()
+    }
+    if (tempArray.length == 1) {
+        tempArray.pop()
+        flipCounter = 0
+    }
+    if (shownCardArray.length == 1)
+        shownCardArray.pop()
+    shuffleNums()
+    // did a setTimeout so that the user wouldn't see the new 
+    // cards before they reset
+    setTimeout(() => {
+        setNumOrder()
+    }, 1000)
+    message.innerText = `You're up ${p1Name.innerText}!`
+    turnCounter = 0
+}
+
 shuffleNums()
 setNumOrder()
 
@@ -97,7 +120,14 @@ singlePlayerButton.addEventListener("click", () => {
     p2Score.style.visibility = "hidden"
     twoPlayer = false
     player1WinCounter = 0
+    player2WinCounter = 0
+    player1Pt = 0
+    player2Pt = 0
+    p1Score.innerText = 0
+    p2Score.innerText = 0
     player1WinDisplay.innerText = " " + 0
+    player2WinDisplay.innerText = " " + 0
+    resetFunction()
 })
 
 twoPlayerButton.addEventListener("click", () => { 
@@ -107,8 +137,13 @@ twoPlayerButton.addEventListener("click", () => {
     twoPlayer = true
     player1WinCounter = 0
     player2WinCounter = 0
+    player1Pt = 0
+    player2Pt = 0
     player1WinDisplay.innerText = " " + 0
     player2WinDisplay.innerText = " " + 0
+    p1Score.innerText = 0
+    p2Score.innerText = 0
+    resetFunction()
 })
 
 submit.addEventListener("click", () => {
@@ -132,30 +167,7 @@ submit.addEventListener("click", () => {
 })
 
 resetButton.addEventListener("click", () => {
-    flipped.forEach((num) => {
-        num.classList.add("flipped")
-    })
-    for (let i = scoreKeep.length - 1; i >= 0; i--) {
-        scoreKeep.pop()
-    }
-    if (tempArray.length == 1) {
-        tempArray.pop()
-        flipCounter = 0
-    }
-    if (shownCardArray.length == 1)
-        shownCardArray.pop()
-    shuffleNums()
-    // did a setTimeout so that the user wouldn't see the new 
-    // cards before they reset
-    setTimeout(() => {
-        setNumOrder()
-    }, 1000)
-    player1Pt = 0
-    player2Pt = 0
-    p1Score.innerText = 0
-    p2Score.innerText = 0
-    message.innerText = `You're up ${p1Name.innerText}!`
-    turnCounter = 0
+    resetFunction()
 })
 
 flipped.forEach((card, i) => {
